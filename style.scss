@@ -1,0 +1,266 @@
+*{
+    box-sizing: border-box;
+}
+$maincolor : rgb(84,68,55);
+$orangecolor : rgb(245,166,35);
+$browncolor: rgb(139,87,42);
+body{
+    margin: 0;
+    padding: 0;
+    background-color: rgb(49,30,15);
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+main{
+    display: grid;
+    margin: auto;
+    justify-content: center;
+    margin-bottom: 7em;
+}
+.title{
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 2em;
+}
+.mainform{
+    padding: 1em;
+    position: relative;
+}
+.orders{
+    font-size: 1.1em;
+    span{
+        color: $orangecolor;
+    }
+}
+.order1{
+    position: relative;
+}
+.basket{
+    width: 70px;
+    height: 70px;
+    background-color: $orangecolor;
+    border-radius: 100%;
+    position: sticky;
+    z-index: 1;
+    transform: translate(10px, -50px);
+    left: 100%;
+    text-align: center;
+    padding-top: 1.2em;
+    font-weight: bold;
+    color: black;
+    transition: 0.4s;
+    border: 3px solid white;
+    &:hover{
+        cursor: pointer;
+        background-color: darken($orangecolor,10%);
+    }
+}
+.line{
+    height: 3em;
+    background-color: $maincolor;
+    padding: 1em;
+    border: 1px solid white;
+    margin: 1em 0;
+    width: 100%;
+    color: white;
+    outline: none;
+    position: relative;
+}
+.breadmenu{
+    display: grid;
+    grid-template-columns: minmax(200px,1fr) minmax(200px,1fr);
+    grid-column-gap: 1em;
+}
+.bread{
+    max-width: 350px;
+    border: 1px solid white;
+    background-color: $maincolor;
+    margin-bottom: 1em;
+    transition: 0.4s;
+    img{
+        width: 100%;
+    }
+    .details{
+        margin: 1em;
+        font-weight: bold;
+        .breadPrice{
+            margin-top: 1em;
+            text-align: right;
+        }
+    }
+    &:hover{
+        cursor: pointer;
+        transform: translate(-1%, -1%);
+    }
+}
+.cart{
+    background-color: $browncolor;
+    color: white;
+    padding: 2em 1em;
+    border: 1px solid $orangecolor;
+    border-radius: 10px;
+    position: fixed;
+    z-index: 1;
+    top: 40%; 
+    margin: auto;
+    max-width: 720px;
+    transform: translate(-50%,-50%);
+    transform: scale(1);
+    transition: 0.5s;
+    width: 100%;
+    table { 
+        border-collapse: collapse; 
+        width: 100%;
+        font-size: 0.8em;
+        font-weight: lighter;
+        text-align: center;
+    }
+    tr{
+        border-bottom: 1px solid white;
+        height: 3em;
+    }
+    .closeBtn{
+        font-weight: bold;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        transition: 0.5s;
+        &:hover{
+            color: black;
+            cursor: pointer;
+        }
+    }
+    .btnline{
+        display: flex;
+        justify-content: right;
+    }
+    #conbtn{
+        border: 1px solid white;
+        border-radius: 30px;
+        padding: 1em 2em;
+        background-color: rgba(255, 255, 255, 0.192);
+        color: $orangecolor;
+        margin-top: 2em;
+        margin-right: 1em;
+        font-size: 0.7em;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    #finbtn{
+        border: none;
+        border-radius: 30px;
+        padding: 1em 2em;
+        background-color: $orangecolor;
+        color: $browncolor;
+        margin-top: 2em;
+        font-size: 0.7em;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}
+.cart.ng-hide{
+    transform: scaleX(0);
+    transform: scaleY(0);
+}
+.choice{
+    background-color: $browncolor;
+    color: white;
+    padding: 2em;
+    display: flex;
+    width: 650px;
+    border-radius: 10px;
+    position: fixed;
+    z-index: 1;
+    top: 40%;   
+    left: 50%;
+    transform: translate(-50%,-50%);
+    opacity: 1;
+    transition: all linear 0.4s;
+    .left{
+       width: 100%;
+       img{
+           width: 100%;
+       }
+    }
+    .right{
+        width: 100%;
+        padding: 1em;
+        span{
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            transition: 0.5s;
+            &:hover{
+                color: black;
+                cursor: pointer;
+            }
+        }
+        .priceline{
+            display: flex;
+            justify-content: space-between;
+            padding: 0 0.5em;
+            margin: 7em 0 1em 0;
+        }
+        .smallBreadPrice{
+            font-size: 0.8em;
+            color: $orangecolor;
+            font-weight: bold;
+        }
+        .smallPrice{
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        form{
+            display: flex;
+            margin-top: 2px;
+            input{
+                width: 100%;
+                border: 1px solid white;
+                background-color: rgba(255, 255, 255, 0.219);
+                outline: none;
+                color: white;
+                padding: 1em;
+                margin-right: 1em;
+                border-radius: 30px;
+                &:focus{
+                    border: 1px solid $orangecolor;
+                }
+            }
+            button{
+                width: 100%;
+                font-size: 0.7em;
+                font-weight: bold;
+                letter-spacing: -1px;
+                padding: 1em;
+                border: none;
+                background-color: $orangecolor;
+                transition: 0.4s;
+                &:hover{
+                    cursor: pointer;
+                    background-color: lighten($orangecolor,15%);
+                }
+            }
+        }
+    }
+}
+.choice.ng-hide{
+    top: -200px;
+    opacity: 0;
+}
+#totalsubmit{
+    padding: 1em 2em;
+    background-color: $orangecolor;
+    font-weight: bold;
+    border: none;
+    margin: 2em;
+    right: 0;
+    position: absolute;
+    transition: 0.4s;
+    &:hover{
+        cursor: pointer;
+        background-color: darken($orangecolor,15%);
+    }
+}

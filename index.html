@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bakery Order Form</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.js"></script>
+        <script src="jquery.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body ng-app="myApp" ng-controller="myCtrl">
+        <main>
+            <h1 class="title">Bakery Order Form</h1>
+            <div class="mainform">
+                <div class="orders order1">
+                    <div><span class="number">1. </span>Choose what to order.*</div>
+                    <div class="line">Total Amount: <span>{{total() | currency}}</span>
+                        <div class="basket" ng-click="showcart()">{{totalqty}}</div>
+                    </div>
+                    <div class="breadmenu">
+                        <div class="bread" ng-repeat="x in breads" ng-click="check(x.id)">
+                            <img ng-src= "{{x.img}}">
+                            <div class="details">
+                                <div class="breadName">{{x.name}}</div>
+                                <div class="breadPrice">Price: <span class="number">{{x.price | currency}}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart" ng-show="cartshow">
+                        <span class="closeBtn" ng-click="hidecart()">&#x2715</span>
+                        <table>
+                            <tr>
+                                <th>Product</th>
+                                <th>Unit Price</th>
+                                <th>Amount</th>
+                                <th>Total</th>
+                            </tr>
+                            <tr ng-repeat = "y in cart">
+                                <td>{{y.name}}</td>
+                                <td>{{y.price | currency}}</td>
+                                <td>{{y.qty}}</td>
+                                <td>{{y.qty * y.price | currency;}}</td>
+                            </tr>
+                            <tr>
+                                <td>Total:</td>
+                                <td></td>
+                                <td></td>
+                                <td>{{total() | currency}}</td>
+                            </tr>
+                        </table>
+                        <div class="btnline">
+                            <button type="button" id="conbtn" ng-click="hidecart()">CONTINUE SHOPPING</button>
+                            <button type="button" id="finbtn" ng-click="hidecart()">FINISH SHOPPING</button>
+                        </div>
+                    </div>
+                    <div class="choice" ng-show="show">
+                        <div class="left">
+                            <img ng-src="{{img}}">
+                        </div>
+                        <div class="right">
+                            <span class="closeBtn" ng-click="hidemodal()">&#x2715</span>
+                            <div class="smallBreadName">{{name}}</div>
+                            <div class="priceline">
+                                <div class="smallPrice">Price</div>
+                                <div class="smallBreadPrice">{{price | currency}}</div>
+                            </div>
+                            <div class="priceAndAdd">
+                                <form>
+                                    <input type="number" id="addqty" name="input" ng-model="qty" required>                                    
+                                    <button type="button" ng-click="add()">ADD TO BASKET</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="orders order2">
+                    <div><span class="number">2. </span>Full name</div>
+                    <input type="text" class="line" placeholder="First Name">
+                    <input type="text" class="line" placeholder="Last Name">
+                </div>
+                <div class="orders order3">
+                    <div><span class="number">3. </span>Email</div>
+                    <input type="email" class="line" placeholder="Email">
+                </div>
+                <div class="orders order4">
+                    <div><span class="number">4. </span>Phone number</div>
+                    <input type="tel" class="line" placeholder="Phone number">
+                </div>
+                <div class="orders order5">
+                    <div><span class="number">5. </span>What is your address?</div>
+                    <input type="text" class="line" placeholder="Address">
+                </div>
+                <button type="submit" id="totalsubmit">Submit</button>
+            </div>
+        </main>
+    </body>
+    <script>
+        var app = angular.module('myApp', ['ngAnimate']);
+        app.controller('myCtrl', function($scope) {
+            $scope.breads = [
+                {
+                    "img" : "1.png",
+                    "name" : "Bread",
+                    "price" : 1.00,
+                    "id" : 1,
+                    "qty" : 1
+                },
+                {
+                    "img" : "2.png",
+                    "name" : "Donut",
+                    "price" : 3.00,
+                    "id" : 2,
+                    "qty" : 1
+                },
+                {
+                    "img" : "3.png",
+                    "name" : "Chocolate Chip Cookie",
+                    "price" : 5.00,
+                    "id" : 3,
+                    "qty" : 1
+                },
+                {
+                    "img" : "4.png",
+                    "name" : "Strawberry-Chocolate Cake",
+                    "price" : 10.00,
+                    "id" : 4,
+                    "qty" : 1
+                },
+                {
+                    "img" : "5.png",
+                    "name" : "Cupcake",
+                    "price" : 8.00,
+                    "id" : 5,
+                    "qty" : 1
+                },
+                {
+                    "img" : "6.png",
+                    "name" : "Sour Cherry Pie",
+                    "price" : 12.00,
+                    "id" : 6,
+                    "qty" : 1
+                }
+            ];
+            $scope.check = function(id){
+                $scope.show = true;  
+                $scope.qty = $scope.breads[id-1].qty;
+                $scope.img = $scope.breads[id-1].img;
+                $scope.name = $scope.breads[id-1].name;
+                $scope.price = $scope.breads[id-1].price;
+                $scope.id = $scope.breads[id-1].id;
+            }
+            $scope.show = false;    
+            $scope.cartshow = false;
+            $scope.showcart = function(){
+                $scope.cartshow = true;
+            }    
+            $scope.hidecart = function(){
+                $scope.cartshow = false;
+            }  
+            $scope.hidemodal = function(){
+                $scope.show = false;
+            }
+            $scope.cart = [];
+            $scope.qty = 0;
+            $scope.totalqty = 0;
+            $scope.add = function(){
+               $scope.totalqty += $scope.qty;
+               $scope.cart.push({
+                    id: $scope.breads[$scope.id-1].id,
+                    qty: $scope.qty,
+                    price: $scope.breads[$scope.id-1].price,
+                    name: $scope.breads[$scope.id-1].name
+                });
+               $scope.show = false;
+               console.log($scope.cart);
+               console.log($scope.cart.length);
+            }
+            $scope.total = function() {
+                var total = 0;
+                angular.forEach($scope.cart, function(item) {
+                    total += item.qty * item.price;
+                })
+                return total;
+            }
+        });
+    </script>
+</html>
